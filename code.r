@@ -23,3 +23,10 @@ plot(surv_male, col = c("blue", "red"), lty = c(1, 2), lwd = 2,
      legend = c("Female", "Male"))
 
 
+# Fit the Cox proportional hazards model
+cox_model <- coxph(Surv(time_to_hosp, censoring_indicator) ~ age + male + fever + cough + sorethroat + wuhantravel, data = data)
+
+# Assess proportional hazards assumption
+cox_zph <- cox.zph(cox_model)
+summary(cox_zph)
+plot(cox_zph)
